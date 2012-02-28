@@ -1,0 +1,18 @@
+# -*- python -*-
+
+subdirs = ""
+
+def set_options(opt):
+  opt.recurse(opt)
+
+def configure(conf):
+  conf.recurse(subdirs)
+
+def build(bld):
+  obj = bld.new_task_gen("cxx", "shlib", "node_addon")
+
+  obj.target = "node-icu-charset-detector"
+  obj.source = "node-icu-charset-detector.cpp"
+  obj.uselib = "ICU"
+
+  bld.recurse(subdirs)
