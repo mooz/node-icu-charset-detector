@@ -7,7 +7,8 @@
 #include <cstring>
 #include <iostream>
 
-#define THROW_EXCEPTION(type, message) return ThrowException(v8::Exception::type(v8::String::New(message)))
+#define EXCEPTION(type, message) \
+    ThrowException(v8::Exception::type(v8::String::New(message)))
 
 class CharsetMatch : public node::ObjectWrap
 {
@@ -64,12 +65,12 @@ public:
     static v8::Handle<v8::Value>
     New(const v8::Arguments& args) {
         if (args.Length() < 1 || !node::Buffer::HasInstance(args[0]))
-            THROW_EXCEPTION(TypeError, "Expected Buffer for the argument");
+            return EXCEPTION(TypeError, "Expected Buffer for the argument");
 
         try {
             CharsetMatch::FromBuffer(args[0]->ToObject())->Wrap(args.This()); // under GC
         } catch (const char* errorMessage) {
-            THROW_EXCEPTION(Error, errorMessage);
+            return EXCEPTION(Error, errorMessage);
         }
 
         return args.This();
@@ -114,4 +115,4 @@ init(v8::Handle<v8::Object> target)
     CharsetMatch::Initialize(target);
 }
 
-#undef THROW_EXCEPTION
+#undef EXCEPTION
