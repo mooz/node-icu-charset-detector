@@ -56,7 +56,8 @@ public:
     // Internal API
     static CharsetMatch*
     FromBuffer(v8::Handle<v8::Object> bufferObject) {
-        return new CharsetMatch(node::Buffer::Data(bufferObject), node::Buffer::Length(bufferObject));
+        return new CharsetMatch(node::Buffer::Data(bufferObject),
+                                node::Buffer::Length(bufferObject));
     }
 
     // JS Constructor
