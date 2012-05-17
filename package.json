@@ -20,5 +20,9 @@
   ],
   "engines": {
     "node": ">=0.6"
+  },
+  "scripts": {
+    "preinstall": "node-waf configure",
+    "install": "node-waf build install"
   }
 }
