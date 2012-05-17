@@ -1,15 +1,15 @@
 {
-  "name"        : "node-icu-charset-detector",
+  "name"        : "icu-charset-detector",
   "version"     : "0.0.1",
   "main"        : "./build/default/lib/node-icu-charset-detector",
-  "description" : "Simple binding for ICU charset detector",
+  "description" : "A simple binding for ICU charset detector",
   "keywords"    : ["charset-detection", "icu"],
   "repository": {
     "type": "git",
-    "path": "git://github.com/mooz/node-icu-charset-detector.git"
+    "path": "git://github.com/mooz/icu-charset-detector.git"
   },
-  "homepage": "http://github.com/mooz/node-icu-charset-detector",
-  "bugs": "http://github.com/mooz/node-icu-charset-detector/issues",
+  "homepage": "http://github.com/mooz/icu-charset-detector",
+  "bugs": "http://github.com/mooz/icu-charset-detector/issues",
   "author": {
     "name": "Masafumi Oyamada",
     "email": "stillpedant@gmail.com",
