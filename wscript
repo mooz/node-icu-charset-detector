@@ -27,7 +27,6 @@ def configure(conf):
 
   conf.env.append_value("CXXFLAGS_ICU", get_command_output("icu-config --cppflags").split(" "))
   conf.env.append_value("LINKFLAGS_ICU", get_command_output("icu-config --ldflags").split(" "))
-
   conf.env.set_variant("default")
 
   conf.recurse(subdirs)

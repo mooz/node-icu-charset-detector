@@ -56,7 +56,6 @@ Here is a simple example to leverage `node-iconv` to convert character sets whic
     var Iconv = require("iconv").Iconv;
     
     function bufferToString(buffer, charset) {
-    
       try {
         return buffer.toString(charset);
       } catch (x) {
