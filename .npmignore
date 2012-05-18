@@ -1,0 +1,6 @@
+.git*
+build/
+.lock-wscript
+node_modules/
+deps/
+.DS_Store
