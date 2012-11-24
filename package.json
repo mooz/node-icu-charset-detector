@@ -1,6 +1,6 @@
 {
   "name"        : "node-icu-charset-detector",
-  "version"     : "0.0.3",
+  "version"     : "0.0.4",
   "main"        : "./build/default/lib/node-icu-charset-detector",
   "description" : "Simple binding for ICU charset detector",
   "keywords"    : ["charset-detection", "icu"],
@@ -20,9 +20,5 @@
   ],
   "engines": {
     "node": ">=0.6"
-  },
-  "scripts": {
-    "preinstall": "node-waf configure",
-    "install": "node-waf build install"
   }
 }
