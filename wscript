@@ -8,9 +8,8 @@ top = "."
 out = "build"
 
 # subdirectories
-sourcedir = "lib"
 testdir   = "test"
-subdirs   = " ".join([sourcedir, testdir])
+subdirs   = " ".join([testdir])
 
 def get_command_output(cmd):
   return os.popen(cmd).read().strip()
@@ -27,9 +26,15 @@ def configure(conf):
 
   conf.env.append_value("CXXFLAGS_ICU", get_command_output("icu-config --cppflags").split(" "))
   conf.env.append_value("LINKFLAGS_ICU", get_command_output("icu-config --ldflags").split(" "))
-  conf.env.set_variant("default")
+  conf.env.set_variant("Release")
 
   conf.recurse(subdirs)
 
 def build(bld):
+  obj = bld.new_task_gen("cxx", "shlib", "node_addon")
+
+  obj.target = "node-icu-charset-detector"
+  obj.source = "node-icu-charset-detector.cpp"
+  obj.uselib = "ICU"
+
   bld.recurse(subdirs)
