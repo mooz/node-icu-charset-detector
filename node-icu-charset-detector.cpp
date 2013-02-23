@@ -115,4 +115,6 @@ init(v8::Handle<v8::Object> target)
     CharsetMatch::Initialize(target);
 }
 
+NODE_MODULE(node_icu_charset_detector, init)
+
 #undef EXCEPTION
