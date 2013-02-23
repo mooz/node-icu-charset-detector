@@ -20,14 +20,16 @@ After that, install `node-icu-charset-detector` from npm.
 
 `node-icu-charset-detector` provides a function `detectCharset(buffer)`, where `buffer` is an instance of `Buffer` whose charset should be detected.
 
-    var charsetDetector = require("node-icu-charset-detector");
+```javascript
+var charsetDetector = require("node-icu-charset-detector");
 
-    var buffer = fs.readFileSync("/path/to/the/file");
-    var charset = charsetDetector.detectCharset(buffer);
-    
-    console.log("charset name: " + charset.toString());
-    console.log("language: " + charset.language);
-    console.log("detection confidence: " + charset.confidence);
+var buffer = fs.readFileSync("/path/to/the/file");
+var charset = charsetDetector.detectCharset(buffer);
+
+console.log("charset name: " + charset.toString());
+console.log("language: " + charset.language);
+console.log("detection confidence: " + charset.confidence);
+```
 
 `detectCharset(buffer)` returns the detected charset name for `buffer`, and the returned charset name has two extra properties `language` and `confidence`:
 
@@ -42,18 +44,20 @@ Since ICU itself does not have a feature to convert character sets, you may need
 
 Here is a simple example to leverage `node-iconv` to convert character sets not supported by Node itself.
 
-    function bufferToString(buffer) {
-      var charsetDetector = require("node-icu-charset-detector");
-      var charset = charsetDetector.detectCharset(buffer).toString();
+```javascript
+function bufferToString(buffer) {
+  var charsetDetector = require("node-icu-charset-detector");
+  var charset = charsetDetector.detectCharset(buffer).toString();
 
-      try {
-        return buffer.toString(charset);
-      } catch (x) {
-        var Iconv = require("iconv").Iconv;
-        var charsetConverter = new Iconv(charset, "utf8");
-        return charsetConverter.convert(buffer).toString();
-      }
-    }
+  try {
+    return buffer.toString(charset);
+  } catch (x) {
+    var Iconv = require("iconv").Iconv;
+    var charsetConverter = new Iconv(charset, "utf8");
+    return charsetConverter.convert(buffer).toString();
+  }
+}
 
-    var buffer = fs.readFileSync("/path/to/the/file");
-    var bufferString = bufferToString(buffer);
+var buffer = fs.readFileSync("/path/to/the/file");
+var bufferString = bufferToString(buffer);
+```
