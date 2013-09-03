@@ -6,7 +6,7 @@ A simple binding of ICU character set detection (http://userguide.icu-project.or
 
 ## Installation
 
-At first, install `libicu` into your system. 
+At first, install `libicu` into your system.
 
 ### Linux
 
