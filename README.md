@@ -10,7 +10,7 @@ At first, install `libicu` into your system.
 
 ### Linux
 
-* Debian
+* Debian (Ubuntu)
 
     ```apt-get install libicu-dev```
 
