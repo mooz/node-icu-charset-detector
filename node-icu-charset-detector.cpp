@@ -81,6 +81,9 @@ private:
     GetName(const v8::Arguments& args) {
         v8::HandleScope scope;
         CharsetMatch* self = node::ObjectWrap::Unwrap<CharsetMatch>(args.This());
+        if (!self->charsetMatch_) {
+            return scope.Close(v8::Null());
+        }
         UErrorCode icuError = U_ZERO_ERROR;
         const char* detectedCharsetName = ucsdet_getName(self->charsetMatch_, &icuError);
         return scope.Close(v8::String::New(detectedCharsetName, strlen(detectedCharsetName)));
@@ -90,6 +93,9 @@ private:
     GetLanguage(const v8::Arguments& args) {
         v8::HandleScope scope;
         CharsetMatch* self = node::ObjectWrap::Unwrap<CharsetMatch>(args.This());
+        if (!self->charsetMatch_) {
+            return scope.Close(v8::Null());
+        }
         UErrorCode icuError = U_ZERO_ERROR;
         const char* detectedLanguage = ucsdet_getLanguage(self->charsetMatch_, &icuError);
         return scope.Close(v8::String::New(detectedLanguage, strlen(detectedLanguage)));
@@ -99,6 +105,9 @@ private:
     GetConfidence(const v8::Arguments& args) {
         v8::HandleScope scope;
         CharsetMatch* self = node::ObjectWrap::Unwrap<CharsetMatch>(args.This());
+        if (!self->charsetMatch_) {
+            return scope.Close(v8::Null());
+        }
         UErrorCode icuError = U_ZERO_ERROR;
         int32_t detectionConfidence = ucsdet_getConfidence(self->charsetMatch_, &icuError);
         return scope.Close(v8::Number::New(static_cast<double>(detectionConfidence)));
