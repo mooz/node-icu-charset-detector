@@ -6,9 +6,15 @@ A simple binding of ICU character set detection (http://userguide.icu-project.or
 
 ## Installation
 
-At first, install `libicu` into your system.
+At first, install `libicu` into your system (See [this instruction](#installing-icu) for details).
 
-### Linux
+After that, install `node-icu-charset-detector` from npm.
+
+    ```npm install node-icu-charset-detector```
+
+### Installing ICU
+
+#### Linux
 
 * Debian (Ubuntu)
 
@@ -18,13 +24,14 @@ At first, install `libicu` into your system.
 
     ```emerge icu```
 
-### OSX
+#### OSX
 
 * MacPorts
 
     ```port install icu +devel```
 
 * Homebrew
+
     ```shell
     brew install icu4c
     ln -s /usr/local/Cellar/icu4c/<VERSION>/bin/icu-config /usr/local/bin/icu-config
@@ -33,17 +40,14 @@ At first, install `libicu` into your system.
 
 If experiencing issues with 'homebrew' installing version 50.1 of icu4c, try the following:
 
+    ```shell
     brew search icu4c
     brew tap homebrew/versions
     brew versions icu4c
     cd $(brew --prefix) && git pull --rebase
     git checkout c25fd2f $(brew --prefix)/Library/Formula/icu4c.rb
     brew install icu4c
-
-
-After that, install `node-icu-charset-detector` from npm.
-
-    npm install node-icu-charset-detector
+    ```
 
 ## Usage
 
