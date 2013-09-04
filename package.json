@@ -1,9 +1,12 @@
 {
-  "name"        : "node-icu-charset-detector",
-  "version"     : "0.0.6",
-  "main"        : "./node-icu-charset-detector.js",
-  "description" : "Simple binding for ICU charset detector",
-  "keywords"    : ["charset-detection", "icu"],
+  "name": "node-icu-charset-detector",
+  "version": "0.0.7",
+  "main": "./node-icu-charset-detector.js",
+  "description": "Simple binding for ICU charset detector",
+  "keywords": [
+    "charset-detection",
+    "icu"
+  ],
   "repository": {
     "type": "git",
     "path": "git://github.com/mooz/node-icu-charset-detector.git"
@@ -16,7 +19,9 @@
     "web": "http://mooz.github.com/"
   },
   "licenses": [
-    { "type": "MIT" }
+    {
+      "type": "MIT"
+    }
   ],
   "engines": {
     "node": ">=0.6"
