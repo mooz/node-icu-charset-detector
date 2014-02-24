@@ -38,7 +38,7 @@ After that, install `node-icu-charset-detector` from npm.
     ln -s /usr/local/Cellar/icu4c/<VERSION>/include/unicode /usr/local/include
     ```
 
-If experiencing issues with 'homebrew' installing version 50.1 of icu4c, try the following:
+    If experiencing issues with 'homebrew' installing version 50.1 of icu4c, try the following:
 
     ```shell
     brew search icu4c
@@ -47,6 +47,19 @@ If experiencing issues with 'homebrew' installing version 50.1 of icu4c, try the
     cd $(brew --prefix) && git pull --rebase
     git checkout c25fd2f $(brew --prefix)/Library/Formula/icu4c.rb
     brew install icu4c
+    ```
+
+* From source
+
+    ```shell
+    curl -O http://download.icu-project.org/files/icu4c/52.1/icu4c-52_1-src.tgz
+    tar xzvf icu4c-4_4_2-src.tgz
+    cd icu/source
+    chmod +x runConfigureICU configure install-sh
+    ./runConfigureICU MacOSX
+    make
+    sudo make install
+    xcode-select --install
     ```
 
 ## Usage
