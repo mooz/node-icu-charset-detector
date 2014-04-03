@@ -23,6 +23,11 @@ After that, install `node-icu-charset-detector` from npm.
 * Gentoo
 
     ```emerge icu```
+    
+* Fedora/CentOS
+
+    ```yum install libicu-devel```
+
 
 #### OSX
 
