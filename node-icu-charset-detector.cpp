@@ -47,7 +47,7 @@ public:
         // detect language
         charsetMatch_ = ucsdet_detect(charsetDetector_, &icuError);
         if (U_FAILURE(icuError))
-            throw "Failed to detect cahrset";
+            throw "Failed to detect charset";
     }
 
     ~CharsetMatch () {
