@@ -1,4 +1,25 @@
-var CharsetMatch = require("./build/Release/node-icu-charset-detector").CharsetMatch;
+var NativeCharsetMatch = require("./build/Release/node-icu-charset-detector").CharsetMatch;
+
+function CharsetMatch(buffer) {
+  if (!(buffer instanceof Buffer)) {
+    throw "Expected an instance of Buffer";
+  }
+  this.native = new NativeCharsetMatch(buffer);
+}
+
+CharsetMatch.prototype = {
+  getName: function () {
+    return this.native.getName.apply(this.native, arguments);
+  },
+
+  getLanguage: function () {
+    return this.native.getLanguage.apply(this.native, arguments);
+  },
+
+  getConfidence: function () {
+    return this.native.getConfidence.apply(this.native, arguments);
+  }
+};
 
 function detectCharset(buffer, options) {
   var charsetMatch = new CharsetMatch(buffer);
@@ -17,6 +38,10 @@ function detectCharset(buffer, options) {
 function detectCharsetStream(stream, onDetectionFinish) {
   var buffer = null;
   var finished = false;
+
+  if (!(stream instanceof require("stream").Stream)) {
+    throw "Expected an instance of Stream";
+  }
 
   function onChunkArrives(chunk) {
     buffer = buffer ? Buffer.concat(buffer, chunk) : chunk;
