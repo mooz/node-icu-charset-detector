@@ -1,4 +1,6 @@
 #include <node.h>
+#include <nan.h>
+
 #include <node_buffer.h>
 #include <node_object_wrap.h>
 
@@ -7,19 +9,16 @@
 #include <cstring>
 #include <iostream>
 
-#define EXCEPTION(type, message) \
-    ThrowException(v8::Exception::type(v8::String::New(message)))
-
 class CharsetMatch : public node::ObjectWrap
 {
 public:
 
     static void
     Initialize(const v8::Handle<v8::Object> target) {
-        v8::HandleScope scope;
+        NanScope();
 
         v8::Local<v8::FunctionTemplate> constructorTemplate
-            = v8::FunctionTemplate::New(CharsetMatch::New);
+            = NanNew<v8::FunctionTemplate>(CharsetMatch::New);
 
         constructorTemplate->InstanceTemplate()->SetInternalFieldCount(1);
 
@@ -29,7 +28,7 @@ public:
         NODE_SET_PROTOTYPE_METHOD(constructorTemplate, "getConfidence", CharsetMatch::GetConfidence);
 
         // export class
-        target->Set(v8::String::NewSymbol("CharsetMatch"), constructorTemplate->GetFunction());
+        target->Set(NanNew<v8::String>("CharsetMatch"), constructorTemplate->GetFunction());
     }
 
     CharsetMatch(const char* bufferData, size_t bufferLength) {
@@ -62,55 +61,62 @@ public:
     }
 
     // JS Constructor
-    static v8::Handle<v8::Value>
-    New(const v8::Arguments& args) {
-        if (args.Length() < 1 || !node::Buffer::HasInstance(args[0]))
-            return EXCEPTION(TypeError, "Expected Buffer for the argument");
+    static
+    NAN_METHOD(New) {
+        NanScope();
+
+        if (args.Length() < 1)
+            NanThrowError("Not enough arguments");
+
+        v8::Handle<v8::Object> buffer = args[0]->ToObject();
+
+        if (!node::Buffer::HasInstance(buffer))
+            NanThrowTypeError("Expected Buffer for the argument");
 
         try {
-            CharsetMatch::FromBuffer(args[0]->ToObject())->Wrap(args.This()); // under GC
+            CharsetMatch::FromBuffer(buffer)->Wrap(args.This()); // under GC
         } catch (const char* errorMessage) {
-            return EXCEPTION(Error, errorMessage);
+            NanThrowError(errorMessage);
         }
 
-        return args.This();
+        NanReturnValue(args.This());
     }
 
 private:
-    static v8::Handle<v8::Value>
-    GetName(const v8::Arguments& args) {
-        v8::HandleScope scope;
+    static
+    NAN_METHOD(GetName) {
+        NanScope();
         CharsetMatch* self = node::ObjectWrap::Unwrap<CharsetMatch>(args.This());
         if (!self->charsetMatch_) {
-            return scope.Close(v8::Null());
+            NanReturnNull();
         }
         UErrorCode icuError = U_ZERO_ERROR;
         const char* detectedCharsetName = ucsdet_getName(self->charsetMatch_, &icuError);
-        return scope.Close(v8::String::New(detectedCharsetName, strlen(detectedCharsetName)));
+        NanReturnValue(NanNew<v8::String>(detectedCharsetName, strlen(detectedCharsetName)));
     }
 
-    static v8::Handle<v8::Value>
-    GetLanguage(const v8::Arguments& args) {
-        v8::HandleScope scope;
+    static
+    NAN_METHOD(GetLanguage) {
+        NanScope();
         CharsetMatch* self = node::ObjectWrap::Unwrap<CharsetMatch>(args.This());
         if (!self->charsetMatch_) {
-            return scope.Close(v8::Null());
+            NanReturnNull();
         }
         UErrorCode icuError = U_ZERO_ERROR;
         const char* detectedLanguage = ucsdet_getLanguage(self->charsetMatch_, &icuError);
-        return scope.Close(v8::String::New(detectedLanguage, strlen(detectedLanguage)));
+        NanReturnValue(NanNew<v8::String>(detectedLanguage, strlen(detectedLanguage)));
     }
 
-    static v8::Handle<v8::Value>
-    GetConfidence(const v8::Arguments& args) {
-        v8::HandleScope scope;
+    static
+    NAN_METHOD(GetConfidence) {
+        NanScope();
         CharsetMatch* self = node::ObjectWrap::Unwrap<CharsetMatch>(args.This());
         if (!self->charsetMatch_) {
-            return scope.Close(v8::Null());
+            NanReturnNull();
         }
         UErrorCode icuError = U_ZERO_ERROR;
         int32_t detectionConfidence = ucsdet_getConfidence(self->charsetMatch_, &icuError);
-        return scope.Close(v8::Number::New(static_cast<double>(detectionConfidence)));
+        NanReturnValue(NanNew<v8::Number>(static_cast<double>(detectionConfidence)));
     }
 
     UCharsetDetector* charsetDetector_;
@@ -125,5 +131,3 @@ init(v8::Handle<v8::Object> target)
 }
 
 NODE_MODULE(node_icu_charset_detector, init)
-
-#undef EXCEPTION
