@@ -10,7 +10,7 @@ At first, install `libicu` into your system (See [this instruction](#installing-
 
 After that, install `node-icu-charset-detector` from npm.
 
-    ```npm install node-icu-charset-detector```
+    npm install node-icu-charset-detector
 
 ### Installing ICU
 
@@ -18,53 +18,52 @@ After that, install `node-icu-charset-detector` from npm.
 
 * Debian (Ubuntu)
 
-    ```apt-get install libicu-dev```
+    apt-get install libicu-dev
 
 * Gentoo
 
-    ```emerge icu```
-    
+    emerge icu
+
 * Fedora/CentOS
 
-    ```yum install libicu-devel```
-
+    yum install libicu-devel
 
 #### OSX
 
 * MacPorts
 
-    ```port install icu +devel```
+    port install icu +devel
 
 * Homebrew
 
-    ```shell
-    brew install icu4c
-    brew link icu4c --force
-    ```
+```shell
+brew install icu4c
+brew link icu4c --force
+```
 
-    If experiencing issues with 'homebrew' installing version 50.1 of icu4c, try the following:
+If experiencing issues with 'homebrew' installing version 50.1 of icu4c, try the following:
 
-    ```shell
-    brew search icu4c
-    brew tap homebrew/versions
-    brew versions icu4c
-    cd $(brew --prefix) && git pull --rebase
-    git checkout c25fd2f $(brew --prefix)/Library/Formula/icu4c.rb
-    brew install icu4c
-    ```
+```shell
+brew search icu4c
+brew tap homebrew/versions
+brew versions icu4c
+cd $(brew --prefix) && git pull --rebase
+git checkout c25fd2f $(brew --prefix)/Library/Formula/icu4c.rb
+brew install icu4c
+```
 
 * From source
 
-    ```shell
-    curl -O http://download.icu-project.org/files/icu4c/52.1/icu4c-52_1-src.tgz
-    tar xzvf icu4c-4_4_2-src.tgz
-    cd icu/source
-    chmod +x runConfigureICU configure install-sh
-    ./runConfigureICU MacOSX
-    make
-    sudo make install
-    xcode-select --install
-    ```
+```shell
+curl -O http://download.icu-project.org/files/icu4c/52.1/icu4c-52_1-src.tgz
+tar xzvf icu4c-4_4_2-src.tgz
+cd icu/source
+chmod +x runConfigureICU configure install-sh
+./runConfigureICU MacOSX
+make
+sudo make install
+xcode-select --install
+```
 
 ## Usage
 
