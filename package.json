@@ -9,7 +9,7 @@
   ],
   "repository": {
     "type": "git",
-    "path": "https://github.com/mooz/node-icu-charset-detector.git"
+    "url": "git://github.com/mooz/node-icu-charset-detector.git"
   },
   "homepage": "http://github.com/mooz/node-icu-charset-detector",
   "bugs": "http://github.com/mooz/node-icu-charset-detector/issues",
