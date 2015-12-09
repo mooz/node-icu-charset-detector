@@ -10,7 +10,8 @@
       'conditions': [
         ['OS=="mac"', {
           'include_dirs': [
-              '/opt/local/include'
+              '/opt/local/include',
+              '/usr/local/include'
           ],
           'xcode_settings': {
             'GCC_ENABLE_CPP_EXCEPTIONS': 'YES'
