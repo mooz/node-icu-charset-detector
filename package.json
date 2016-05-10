@@ -1,6 +1,6 @@
 {
   "name": "node-icu-charset-detector",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "main": "./node-icu-charset-detector.js",
   "description": "Simple binding for ICU charset detector",
   "keywords": [
